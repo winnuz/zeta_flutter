@@ -20,7 +20,7 @@ class ZetaChatItem extends StatelessWidget {
     this.additionalIcons = const [],
     this.count,
     this.onTap,
-    this.starred = false,
+    this.starred,
     this.onMenuMoreTap,
     this.onCallTap,
     this.onDeleteTap,
@@ -61,7 +61,7 @@ class ZetaChatItem extends StatelessWidget {
   final VoidCallback? onTap;
 
   /// Whether the chat list is starred.
-  final bool starred;
+  final bool? starred;
 
   /// Callback for slidable action -  menu more.
   final VoidCallback? onMenuMoreTap;
@@ -201,13 +201,13 @@ class ZetaChatItem extends StatelessWidget {
                                               child: Row(
                                                 children: [
                                                   ...additionalIcons,
-                                                  if (enabledWarningIcon)
+                                                  if (enabledNotificationIcon)
                                                     Padding(
                                                       padding: const EdgeInsets.only(
                                                         left: ZetaSpacing.xxs,
                                                       ),
                                                       child: Icon(
-                                                        ZetaIcons.info_round,
+                                                        ZetaIcons.error_round,
                                                         color: colors.cool.shade70,
                                                       ),
                                                     ),
@@ -263,15 +263,16 @@ class ZetaChatItem extends StatelessWidget {
                                       child: subtitle,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: ZetaSpacing.xxs,
+                                  if (starred != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: ZetaSpacing.xxs,
+                                      ),
+                                      child: Icon(
+                                        starred! ? ZetaIcons.star_sharp : ZetaIcons.star_outline_sharp,
+                                        color: starred! ? colors.yellow.shade60 : null,
+                                      ),
                                     ),
-                                    child: Icon(
-                                      starred ? ZetaIcons.star_sharp : ZetaIcons.star_outline_sharp,
-                                      color: starred ? colors.yellow.shade60 : null,
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -305,7 +306,7 @@ class ZetaChatItem extends StatelessWidget {
       )
       ..add(IntProperty('count', count))
       ..add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap))
-      ..add(DiagnosticsProperty<bool>('starred', starred))
+      ..add(DiagnosticsProperty<bool?>('starred', starred))
       ..add(
         ObjectFlagProperty<VoidCallback?>.has('onMenuMoreTap', onMenuMoreTap),
       )
