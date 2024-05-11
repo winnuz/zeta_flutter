@@ -336,7 +336,9 @@ class _ZetaSlidableAction extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: ZetaSpacing.xxs),
           child: IconButton(
-            onPressed: () => onPressed,
+            onPressed: () {
+              onPressed?.call();
+            },
             style: IconButton.styleFrom(
               backgroundColor: backgroundColor,
               foregroundColor: foregroundColor,
