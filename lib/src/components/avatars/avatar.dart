@@ -367,7 +367,7 @@ class ZetaAvatarBadge extends StatelessWidget {
     final backgroundColor = type == ZetaAvatarBadgeType.notification ? colors.negative : color;
     final badgeSize = _getContainerSize();
     final borderSize = _getBorderSize();
-    final paddedSize = badgeSize + ZetaSpacing.x1;
+    final paddedSize = badgeSize + ZetaSpacing.x0_5;
 
     final innerContent = Container(
       margin: const EdgeInsets.all(0.01),
@@ -416,7 +416,7 @@ class ZetaAvatarBadge extends StatelessWidget {
   }
 
   double _getBorderSize() {
-    return size.pixelSize / 48;
+    return size.pixelSize / 24;
   }
 
   @override
